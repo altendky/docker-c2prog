@@ -26,8 +26,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          build-args:
-            - C2PROG_ARCHIVE=http://permanent.fstab.net/c2prog/C2Prog-v1.8.10-r1.tar.gz
+          build-args: |
+            C2PROG_ARCHIVE=http://permanent.fstab.net/c2prog/C2Prog-v1.8.10-r1.tar.gz
           # Consider the triggering branches if changing this
           push: ${{ github.event_name == 'push' && github.event.base_ref == 'main' }}
           tags: altendky/c2prog:latest
