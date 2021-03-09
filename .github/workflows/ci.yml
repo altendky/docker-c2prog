@@ -37,7 +37,7 @@ jobs:
 
       - name: Test
         run: |
-          docker run --interactive --pull never --rm --tty altendky/c2prog:latest -target | tee run.log
+          docker run --interactive --pull never --rm altendky/c2prog:latest -target | tee run.log
           grep 'Missing option -bin or -ehx!' run.log
 
       - name: Login to DockerHub
