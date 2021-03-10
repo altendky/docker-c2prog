@@ -12,7 +12,7 @@ def main():
     # Consider the workflow triggering branches if changing this
     is_main = github["ref"] == "refs/heads/main"
 
-    user_name, repository_name = github["repository"].partition('/docker-')
+    user_name, _, repository_name = github["repository"].partition("/docker-")
     pull_request = github["event"].get("pull_request", {})
     labels = pull_request.get("labels", [])
     pull_request_number = pull_request.get("number", None)
@@ -41,6 +41,9 @@ def main():
     set_output("name", name)
     set_output("tag", tag)
     set_output("name_and_tag", name_and_tag)
-    set_output("c2prog_url", "http://permanent.fstab.net/c2prog/C2Prog-v1.8.10-r1.tar.gz")
+    set_output(
+        "c2prog_url", "http://permanent.fstab.net/c2prog/C2Prog-v1.8.10-r1.tar.gz"
+    )
+
 
 main()
