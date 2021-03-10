@@ -1,12 +1,9 @@
 ARG FROM="ubuntu:focal-20210217"
 FROM $FROM
 
-RUN dpkg --add-architecture i386
-RUN apt-get update --yes
 
-ARG DEBIAN_FRONTEND="noninteractive"
-RUN apt-get upgrade --yes
-RUN apt-get install --yes --no-install-recommends wine wine32 git
+ADD install-packages.sh .
+RUN ./install-packages.sh wine wine32 git
 
 ENV WINEPREFIX=/wine
 # Just triggers creation of the Wine configuration so
