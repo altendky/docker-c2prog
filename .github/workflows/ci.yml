@@ -32,6 +32,8 @@ jobs:
           VARIABLES: ${{ toJSON(steps.variables.outputs) }}
         shell: python
         run: |
+          import os
+
           print(os.environ["VARIABLES"])
 
       - name: Set up Docker Buildx
