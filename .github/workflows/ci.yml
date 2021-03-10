@@ -57,6 +57,14 @@ jobs:
           ls -l
           [[ "$(stat -c %s test_2838x_c28_cpu01.ehx)" -eq "$(stat -c %s result.ehx)" ]]
 
+      - name: Report size
+        - run: |
+            mkdir report_size
+            cd report_size
+            docker save ${{ matrix.name }}:${{ matrix.tag }} | gzip > c2p.tar.gz
+            ls -lh c2p.tar.gz
+            rm c2p.tar.gz
+
       - name: Login to DockerHub
         uses: docker/login-action@v1
         if: ${{ matrix.publish }}
