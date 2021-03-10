@@ -30,6 +30,7 @@ jobs:
       - name: Show variables
         env:
           VARIABLES: ${{ toJSON(steps.variables.outputs) }}
+        shell: python
         run: |
           print(os.environ["VARIABLES"])
 
