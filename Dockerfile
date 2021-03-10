@@ -1,4 +1,4 @@
-ARG FROM="python:3.7-slim"
+ARG FROM="buster-20210208-slim"
 FROM $FROM
 
 RUN dpkg --add-architecture i386
