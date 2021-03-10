@@ -1,4 +1,4 @@
-ARG FROM="buster-20210208-slim"
+ARG FROM="debian:buster-20210208-slim"
 FROM $FROM
 
 RUN dpkg --add-architecture i386
