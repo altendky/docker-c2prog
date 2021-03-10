@@ -23,6 +23,8 @@ jobs:
             publish: ${{ github.event_name == 'push' && github.event.base_ref == 'main' }}
 
     steps:
+      - uses: twisted/python-info-action@v1
+
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
