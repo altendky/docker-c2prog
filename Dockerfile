@@ -24,5 +24,7 @@ ENV C2PROG_TARGETS="${C2PROG_ROOT}/targets"
 
 COPY C2ProgShell /usr/local/bin/
 
+RUN ln -s "${C2PROG_TARGETS}" /targets
+
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
