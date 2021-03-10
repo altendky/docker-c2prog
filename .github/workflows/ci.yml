@@ -29,7 +29,7 @@ jobs:
 
       - name: Show variables
         env:
-          VARIABLES: ${{ toJSON(steps.variables.outputs) }}
+          VARIABLES: ${{ steps.variables.outputs }}
         shell: python
         run: |
           import os
@@ -41,7 +41,7 @@ jobs:
 
       - name: Download C2Prog archive
         run: |
-          curl --location --output C2Prog.tar.gz "${{ steps.variables.outputs.c2prog_url }}"
+          curl --location --output C2Prog.tar.gz "${{ fromJSON(steps.variables.outputs.c2prog_url) }}"
 
       - name: Build
         id: docker_build
@@ -49,18 +49,18 @@ jobs:
         with:
           context: .
           load: true
-          tags: ${{ steps.variables.outputs.name_and_tag }}
+          tags: ${{ fromJSON(steps.variables.outputs.name_and_tag) }}
 
       - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+        run: echo ${{ fromJSON(steps.docker_build.outputs.digest) }}
 
       - name: Test
         run: |
-          docker run --pull never --interactive --rm ${{ steps.variables.outputs.name_and_tag }} -target | tee run.log
+          docker run --pull never --interactive --rm ${{ fromJSON(steps.variables.outputs.name_and_tag) }} -target | tee run.log
           grep --quiet 'Missing option -bin or -ehx!' run.log
           cd example
           ls -l
-          docker run --pull never --volume "$(pwd)/custom_demo.xml":/targets/custom_demo.xml --volume "$(pwd)":/data --rm ${{ steps.variables.outputs.name_and_tag }} -create="z:/data/result.ehx" -bin="z:/data/test_2838x_c28_cpu01.out" -target=28388,6,4-CPU1_XBL-Demo
+          docker run --pull never --volume "$(pwd)/custom_demo.xml":/targets/custom_demo.xml --volume "$(pwd)":/data --rm ${{ fromJSON(steps.variables.outputs.name_and_tag) }} -create="z:/data/result.ehx" -bin="z:/data/test_2838x_c28_cpu01.out" -target=28388,6,4-CPU1_XBL-Demo
           ls -l
           [[ "$(stat -c %s test_2838x_c28_cpu01.ehx)" -eq "$(stat -c %s result.ehx)" ]]
 
@@ -68,32 +68,32 @@ jobs:
         run: |
           mkdir report_size
           cd report_size
-          docker save ${{ steps.variables.outputs.name_and_tag }} | gzip > c2p.tar.gz
+          docker save ${{ fromJSON(steps.variables.outputs.name_and_tag) }} | gzip > c2p.tar.gz
           ls -lh c2p.tar.gz
           rm c2p.tar.gz
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
-        if: ${{ steps.variables.outputs.publish }}
+        if: ${{ fromJSON(steps.variables.outputs.publish) }}
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_PAT }}
 
       - name: Push
         uses: docker/build-push-action@v2
-        if: ${{ steps.variables.outputs.publish }}
+        if: ${{ fromJSON(steps.variables.outputs.publish) }}
         with:
           context: .
           push: true
-          tags: ${{ steps.variables.outputs.name_and_tag }}
+          tags: ${{ fromJSON(steps.variables.outputs.name_and_tag) }}
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v2
-        if: ${{ steps.variables.outputs.publish }}
+        if: ${{ fromJSON(steps.variables.outputs.publish) }}
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: ${{ steps.variables.outputs.name }}
+          repository: ${{ fromJSON(steps.variables.outputs.name) }}
 
   all:
     name: All
