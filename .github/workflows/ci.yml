@@ -27,6 +27,12 @@ jobs:
         run: |
           python .github/set_variables.py
 
+      - name: Show variables
+        env:
+          VARIABLES: ${{ toJSON(steps.variables.outputs) }}
+        run: |
+          print(os.environ["VARIABLES"])
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
