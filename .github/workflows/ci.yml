@@ -52,7 +52,7 @@ jobs:
           tags: ${{ fromJSON(steps.variables.outputs.name_and_tag) }}
 
       - name: Image digest
-        run: echo ${{ fromJSON(steps.docker_build.outputs.digest) }}
+        run: echo ${{ steps.docker_build.outputs.digest }}
 
       - name: Test
         run: |
