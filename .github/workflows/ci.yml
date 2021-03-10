@@ -15,11 +15,12 @@ jobs:
 
     strategy:
       matrix:
-        - c2prog_url: http://permanent.fstab.net/c2prog/C2Prog-v1.8.10-r1.tar.gz
-          name: altendky/c2prog
-          tag: latest
-          # Consider the triggering branches if changing this
-          publish: github.event_name == 'push' && github.event.base_ref == 'main'
+        include:
+          - c2prog_url: http://permanent.fstab.net/c2prog/C2Prog-v1.8.10-r1.tar.gz
+            name: altendky/c2prog
+            tag: latest
+            # Consider the triggering branches if changing this
+            publish: github.event_name == 'push' && github.event.base_ref == 'main'
 
     steps:
       - uses: actions/checkout@v2
