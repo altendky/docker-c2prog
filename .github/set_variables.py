@@ -33,6 +33,7 @@ def main():
         if is_push:
             publish = True
     elif publish_label is not None:
+        publish = True
         tag = f"pr{pull_request_number}"
 
     name_and_tag = f"{name}:{tag}"
