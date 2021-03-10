@@ -16,16 +16,16 @@ jobs:
     steps:
       - uses: twisted/python-info-action@v1
 
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
       - name: Define variables
         id: variables
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
           python .github/set_variables.py
-
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
