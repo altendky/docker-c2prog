@@ -20,7 +20,7 @@ jobs:
             name: altendky/c2prog
             tag: latest
             # Consider the triggering branches if changing this
-            publish: github.event_name == 'push' && github.event.base_ref == 'main'
+            publish: ${{ github.event_name == 'push' && github.event.base_ref == 'main' }}
 
     steps:
       - uses: actions/checkout@v2
@@ -61,6 +61,7 @@ jobs:
         if: ${{ matrix.publish }}
         with:
           push: true
+          tags: ${{ matrix.name }}:${{ matrix.tag }}
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v2
