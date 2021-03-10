@@ -3,7 +3,7 @@ FROM $FROM
 
 
 ADD install-packages.sh .
-RUN ./install-packages.sh wine wine32 git
+RUN ./install-packages.sh wine wine32 git/buster-backports git-man/buster-backports
 
 ENV WINEPREFIX=/wine
 # Just triggers creation of the Wine configuration so
