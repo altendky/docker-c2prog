@@ -1,8 +1,8 @@
 docker-c2prog
 =============
 
-[![GitHub](https://img.shields.io/github/last-commit/altendky/docker-c2prog/main.svg)](https://github.com/altendky/docker-c2prog)]
-[![Docker Hub](https://img.shields.io/docker/pulls/altendky/c2prog.svg)](https://hub.docker.com/r/altendky/c2prog)]
+[![GitHub](https://img.shields.io/github/last-commit/altendky/docker-c2prog/main.svg)](https://github.com/altendky/docker-c2prog)
+[![Docker Hub](https://img.shields.io/docker/pulls/altendky/c2prog.svg)](https://hub.docker.com/r/altendky/c2prog)
 
 [CodeSkin] develops and distributes reflashing solutions for Texas Instruments C2000 MCUs.
 Their application [C2Prog] is able to flash the embedded controller as well as prepare files for use when flashing.
