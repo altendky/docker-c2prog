@@ -61,10 +61,10 @@ jobs:
         with:
           push: true
 
-    - name: Docker Hub Description
-      uses: peter-evans/dockerhub-description@v2
-      if: ${{ matrix.publish }}
-      with:
-        username: ${{ secrets.DOCKERHUB_USER }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
-        repository: ${{ matrix.name }}
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v2
+        if: ${{ matrix.publish }}
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: ${{ matrix.name }}
