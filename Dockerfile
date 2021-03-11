@@ -1,4 +1,4 @@
-ARG FROM="python:3.7-slim"
+ARG FROM="ubuntu:focal-20210217"
 FROM $FROM
 
 
