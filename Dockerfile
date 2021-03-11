@@ -1,4 +1,4 @@
-ARG FROM="debian:buster-20210208-slim"
+ARG FROM="python:3.7-slim"
 FROM $FROM
 
 
