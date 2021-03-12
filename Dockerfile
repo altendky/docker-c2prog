@@ -3,7 +3,7 @@ FROM $FROM
 
 
 ADD install-packages.sh .
-RUN ./install-packages.sh wine wine32 git
+RUN ./install-packages.sh wine wine32 git openssl
 
 ADD update-github-cert.sh .
 RUN ./update-github-cert.sh
