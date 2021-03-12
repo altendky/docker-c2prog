@@ -98,10 +98,10 @@ jobs:
   run:
     runs-on: ubuntu-latest
     container: altendky/c2prog:pr20
+    needs:
+      - build
 
     steps:
-      - uses: twisted/python-info-action@v1
-
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
