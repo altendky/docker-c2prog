@@ -1,9 +1,12 @@
-ARG FROM="debian:buster-20210208-slim"
+ARG FROM="ubuntu:focal-20210217"
 FROM $FROM
 
 
 ADD install-packages.sh .
-RUN ./install-packages.sh wine wine32 git
+RUN ./install-packages.sh wine wine32 git openssl
+
+ADD update-github-cert.sh .
+RUN ./update-github-cert.sh
 
 RUN useradd --create-home user
 
