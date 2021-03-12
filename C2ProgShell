@@ -1,2 +1,3 @@
 #!/bin/bash
+id
 exec wine "${C2PROG_ROOT}/C2ProgShell.exe" "$@"
