@@ -93,7 +93,9 @@ jobs:
 
   run:
     runs-on: ubuntu-latest
-    container: ${{ fromJSON(needs.build.outputs.name_and_tag) }}
+    container:
+      image: ${{ fromJSON(needs.build.outputs.name_and_tag) }}
+      options: --user 1000
     needs:
       - build
 
