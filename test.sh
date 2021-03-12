@@ -4,6 +4,8 @@ set -evx
 
 NAME_AND_TAG=$1
 
+id
+
 docker run --pull never --interactive --rm ${NAME_AND_TAG} -target | tee run.log
 grep --quiet 'Missing option -bin or -ehx!' run.log
 cd example
