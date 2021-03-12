@@ -10,8 +10,10 @@ on:
       - "**"
 
 jobs:
-  docker:
+  build:
     runs-on: ubuntu-latest
+    outputs:
+      name_and_tag: ${{ steps.variables.outputs.name_and_tag }}
 
     steps:
       - uses: twisted/python-info-action@v1
@@ -76,7 +78,7 @@ jobs:
         uses: docker/login-action@v1
         if: ${{ fromJSON(steps.variables.outputs.publish) }}
         with:
-          username: ${{ secrets.DOCKERHUB_USER }}
+          username: ${{ fromJSON(steps.variables.outputs.dockerhub_username) }}
           password: ${{ secrets.DOCKERHUB_PAT }}
 
       - name: Push
@@ -91,15 +93,31 @@ jobs:
         uses: peter-evans/dockerhub-description@v2
         if: ${{ fromJSON(steps.variables.outputs.publish) }}
         with:
-          username: ${{ secrets.DOCKERHUB_USER }}
+          username: ${{ fromJSON(steps.variables.outputs.dockerhub_username) }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           repository: ${{ fromJSON(steps.variables.outputs.name) }}
+
+  run:
+    runs-on: ubuntu-latest
+    container: ${{ fromJSON(needs.build.outputs.name_and_tag) }}
+    needs:
+      - build
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Check Dockerfile
+        run: |
+          cat Dockerfile
 
   all:
     name: All
     runs-on: ubuntu-latest
     needs:
-      - docker
+      - build
+      - run
     steps:
       - name: This
         shell: python

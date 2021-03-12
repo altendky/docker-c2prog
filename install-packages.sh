@@ -11,13 +11,6 @@ set -euo pipefail
 # 32-bit Wine requires i386
 dpkg --add-architecture i386
 
-VERSION=$(sed --quiet 's/^VERSION=.*(\(.*\)).*$/\1/p' /etc/os-release)
-
-cat >> /etc/apt/sources.list << EOF
-deb     http://deb.debian.org/debian ${VERSION}-backports main
-deb-src http://deb.debian.org/debian ${VERSION}-backports main
-EOF
-
 # Tell apt-get we're never going to be able to give manual
 # feedback:
 export DEBIAN_FRONTEND=noninteractive
@@ -26,10 +19,10 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 
 # Install security updates:
-apt-get --yes upgrade
+apt-get -y upgrade
 
 # Install a new package, without unnecessary recommended packages:
-apt-get --yes install --no-install-recommends "$@"
+apt-get -y install --no-install-recommends "$@"
 
 # Delete cached files we don't need anymore:
 apt-get clean
