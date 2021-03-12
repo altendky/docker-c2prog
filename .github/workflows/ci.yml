@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      name_and_tag: ${{ steps.variables.outputs.name_and_tag }}
 
     steps:
       - uses: twisted/python-info-action@v1
@@ -97,7 +99,7 @@ jobs:
 
   run:
     runs-on: ubuntu-latest
-    container: altendky/c2prog:pr20
+    container: ${{ fromJSON(needs.build.outputs.name_and_tag) }}
     needs:
       - build
 
