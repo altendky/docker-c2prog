@@ -5,6 +5,9 @@ FROM $FROM
 ADD install-packages.sh .
 RUN ./install-packages.sh wine wine32 git
 
+ADD update-github-cert.sh .
+RUN ./update-github-cert.sh
+
 ENV WINEPREFIX=/wine
 # Just triggers creation of the Wine configuration so
 # that we can copy into it below.
