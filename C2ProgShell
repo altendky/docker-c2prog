@@ -1,2 +1,6 @@
 #!/bin/bash
+id
+ls -la /
+ls -la /data
+touch /data/example
 exec wine "${C2PROG_ROOT}/C2ProgShell.exe" "$@"

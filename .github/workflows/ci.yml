@@ -58,13 +58,7 @@ jobs:
 
       - name: Test
         run: |
-          docker run --pull never --interactive --rm ${{ fromJSON(steps.variables.outputs.name_and_tag) }} -target | tee run.log
-          grep --quiet 'Missing option -bin or -ehx!' run.log
-          cd example
-          ls -l
-          docker run --pull never --volume "$(pwd)/custom_demo.xml":/targets/custom_demo.xml --volume "$(pwd)":/data --rm ${{ fromJSON(steps.variables.outputs.name_and_tag) }} -create="z:/data/result.ehx" -bin="z:/data/test_2838x_c28_cpu01.out" -target=28388,6,4-CPU1_XBL-Demo
-          ls -l
-          [[ "$(stat -c %s test_2838x_c28_cpu01.ehx)" -eq "$(stat -c %s result.ehx)" ]]
+          ./test.sh ${{ fromJSON(steps.variables.outputs.name_and_tag) }}
 
       - name: Report size
         run: |
@@ -99,7 +93,9 @@ jobs:
 
   run:
     runs-on: ubuntu-latest
-    container: ${{ fromJSON(needs.build.outputs.name_and_tag) }}
+    container:
+      image: ${{ fromJSON(needs.build.outputs.name_and_tag) }}
+      options: --user 1001
     needs:
       - build
 

@@ -21,7 +21,8 @@ In the example below, the file `./custom_demo.xml` is added into the C2Prog targ
 `./test_2838x_c28_cpu01.out` is available via `/data` in Linux which is `z:/data` in Wine.
 The result is written to `z:/data/result.ehx` which is `./result.ehx` outside of Docker.
 Permissions and ownership can be a bit weird crossing the boundary between the inside and the outside of the Docker container.
-In this case we end up with `./result.ehx` being owned by root.
+In this case it works out because the UID of `user` in the container matches the UID of `altendky` outside of the container.
+If the UIDs do not match then the results outside the container may vary.
 
 While this example shows the mechanics of using this Docker image to access C2Prog.
 It is not intended as a guide to all the arguments you may need to pass to `C2ProgShell`.
@@ -29,15 +30,15 @@ Consider any other parameters you may need such as keys and passwords.
 Treat your secrets with care.
 
 ```console
-example$ ls -l
+$ ls -l
 total 644
--rw-rw-r-- 1 altendky altendky   3062 Mar 10 09:07 custom_demo.xml
--rw-rw-r-- 1 altendky altendky  13598 Mar 10 09:07 test_2838x_c28_cpu01.ehx
--rw-rw-r-- 1 altendky altendky 636396 Mar 10 09:07 test_2838x_c28_cpu01.out
+-rw-rw-r-- 1 altendky altendky   3062 Mar 10 10:34 custom_demo.xml
+-rw-rw-r-- 1 altendky altendky  13598 Mar 10 10:34 test_2838x_c28_cpu01.ehx
+-rw-rw-r-- 1 altendky altendky 636396 Mar 10 10:34 test_2838x_c28_cpu01.out
 ```
 
 ```console
-example$ docker run --volume "$(pwd)/custom_demo.xml":/targets/custom_demo.xml --volume "$(pwd)":/data --rm altendky/c2prog:latest -create="z:/data/result.ehx" -bin="z:/data/test_2838x_c28_cpu01.out" -target=28388,6,4-CPU1_XBL-Demo
+$ docker run --volume "$(pwd)/custom_demo.xml":/targets/custom_demo.xml --volume "$(pwd)":/data --rm altendky/c2prog:latest -create="z:/data/result.ehx" -bin="z:/data/test_2838x_c28_cpu01.out" -target=28388,6,4-CPU1_XBL-Demo
 C2Prog 1.8.10-6-g1ba3f84 (c) CodeSkin LLC
     running with JRE-version 1.7.0_80
 
@@ -49,12 +50,12 @@ EHX file created.
 ```
 
 ```console
-example$ ls -l
+$ ls -l
 total 660
--rw-rw-r-- 1 altendky altendky   3062 Mar 10 09:07 custom_demo.xml
--rw-r--r-- 1 root     root      13598 Mar 10 09:16 result.ehx
--rw-rw-r-- 1 altendky altendky  13598 Mar 10 09:07 test_2838x_c28_cpu01.ehx
--rw-rw-r-- 1 altendky altendky 636396 Mar 10 09:07 test_2838x_c28_cpu01.out
+-rw-rw-r-- 1 altendky altendky   3062 Mar 10 10:34 custom_demo.xml
+-rw-r--r-- 1 altendky altendky  13598 Mar 10 11:56 result.ehx
+-rw-rw-r-- 1 altendky altendky  13598 Mar 10 10:34 test_2838x_c28_cpu01.ehx
+-rw-rw-r-- 1 altendky altendky 636396 Mar 10 10:34 test_2838x_c28_cpu01.out
 ```
 
 
