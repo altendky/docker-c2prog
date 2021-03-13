@@ -95,6 +95,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ${{ fromJSON(needs.build.outputs.name_and_tag) }}
+      options: --user 1001
     needs:
       - build
 
