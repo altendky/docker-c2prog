@@ -3,10 +3,7 @@ FROM $FROM
 
 
 ADD install-packages.sh .
-RUN ./install-packages.sh wine wine32 git openssl
-
-ADD update-github-cert.sh .
-RUN ./update-github-cert.sh
+RUN ./install-packages.sh ca-certificates git wine wine32
 
 ENV WINEPREFIX=/wine
 # Just triggers creation of the Wine configuration so
