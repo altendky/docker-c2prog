@@ -60,6 +60,9 @@ jobs:
         run: |
           docker run --pull never --interactive --rm ${{ fromJSON(steps.variables.outputs.name_and_tag) }} -target | tee run.log
           grep --quiet 'Missing option -bin or -ehx!' run.log
+
+          docker run --pull never --interactive --rm --entrypoint bash ${{ fromJSON(steps.variables.outputs.name_and_tag) }} -c "GIT_TERMINAL_PROMPT=0 git clone https://github.com/actions/checkout"
+
           cd example
           ls -l
           docker run --pull never --volume "$(pwd)/custom_demo.xml":/targets/custom_demo.xml --volume "$(pwd)":/data --rm ${{ fromJSON(steps.variables.outputs.name_and_tag) }} -create="z:/data/result.ehx" -bin="z:/data/test_2838x_c28_cpu01.out" -target=28388,6,4-CPU1_XBL-Demo
