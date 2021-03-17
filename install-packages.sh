@@ -19,10 +19,10 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 
 # Install security updates:
-apt-get -y upgrade
+apt-get --yes upgrade
 
 # Install a new package, without unnecessary recommended packages:
-apt-get -y install --no-install-recommends "$@"
+apt-get --yes install --no-install-recommends "$@"
 
 # Delete cached files we don't need anymore:
 apt-get clean
