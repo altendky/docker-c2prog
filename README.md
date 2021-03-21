@@ -9,6 +9,23 @@ Their application [C2Prog] is able to flash the embedded controller as well as p
 This project makes C2Prog easily available in a Linux Docker image intended for use in your CI system.
 
 
+Versioning
+----------
+
+Tags will be provided such as follows.
+Updates may or may not be provided following updated base images.
+If needed, please submit an issue and we can discuss.
+
+- `latest` is simply the most recent build from the main branch.
+  This should generally only be used in development.
+- `stable` will track the most recent release.
+  Following this may introduce breaking changes including incompatible updates to the base image.
+- `vX` should not introduce breaking changes and will track the underlying base image updates.
+  New features may be introduced but incompatibilities introduced from this repository will be categorized as bugs to be fixed or reverted.
+- `vX.Y` will not receive any new changes from this repository.
+  The underlying base image will be updated.
+
+
 Usage
 -----
 
