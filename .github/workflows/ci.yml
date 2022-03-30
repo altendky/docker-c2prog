@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: 3.8
 
-      - uses: twisted/python-info-action@v1
+      #- uses: twisted/python-info-action@v1
 
       - name: Define variables
         id: variables
@@ -83,13 +83,13 @@ jobs:
         run: |
           docker push ${{ fromJSON(steps.variables.outputs.name_and_tag) }}
 
-      - name: Docker Hub Description
-        uses: peter-evans/dockerhub-description@v2
-        if: ${{ fromJSON(steps.variables.outputs.publish_readme) }}
-        with:
-          username: ${{ fromJSON(steps.variables.outputs.dockerhub_username) }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: ${{ fromJSON(steps.variables.outputs.name) }}
+#      - name: Docker Hub Description
+#        uses: peter-evans/dockerhub-description@v2
+#        if: ${{ fromJSON(steps.variables.outputs.publish_readme) }}
+#        with:
+#          username: ${{ fromJSON(steps.variables.outputs.dockerhub_username) }}
+#          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+#          repository: ${{ fromJSON(steps.variables.outputs.name) }}
 
   all:
     name: All
