@@ -5,6 +5,7 @@ on:
     branches:
       # Consider the Docker build push condition if changing this
       - 'main'
+      - 'SC-559-DockerTransfer' #delete
   pull_request:
     branches:
       - "**"

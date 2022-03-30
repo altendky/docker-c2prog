@@ -48,7 +48,7 @@ def main():
     set_output(
         "c2prog_url", "http://permanent.fstab.net/c2prog/C2Prog-v1.8.10-r1.tar.gz"
     )
-    set_output("dockerhub_username", "altendky")
+    set_output("dockerhub_username", "epcpower")
 
 
 main()
